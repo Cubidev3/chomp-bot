@@ -26,7 +26,7 @@ suspend fun main() {
         "peepee",
     )
 
-    val kord = Kord("OTQ4MzgzODI5NzM4MDAwNDI0.Yh7BRQ.aQlqZ1MX-scVZrciM0S5UhzYYbM")
+    val kord = Kord(System.getenv("BOT_TOKEN"))
 
     kord.on<MessageCreateEvent> {
         var triggersWhitelist = false
@@ -36,7 +36,7 @@ suspend fun main() {
             if (word in message.content.lowercase()) triggersWhitelist = true
         }
 
-        if (triggersWhitelist) this.message.reply {
+        if (triggersWhitelist) message.reply {
             content = "**chomp**"
         }
     }
