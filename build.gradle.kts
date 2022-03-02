@@ -27,6 +27,10 @@ tasks.withType<Jar> {
     }
 
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    configurations.compileClasspath.get().forEach {
+        from(if (it.isDirectory) it else zipTree(it))
+    }
 }
 
 tasks.create("stage") {
