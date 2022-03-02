@@ -21,6 +21,12 @@ tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "11"
 }
 
+tasks.withType<Jar> {
+    manifest {
+        attributes["Main-Class"] = "com.chompbot.MainKt"
+    }
+}
+
 tasks.create("stage") {
     dependsOn("build")
 }
