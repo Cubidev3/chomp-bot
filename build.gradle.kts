@@ -22,7 +22,7 @@ tasks.withType<KotlinCompile> {
 }
 
 tasks.create("stage") {
-    dependsOn("build", "clean")
+    dependsOn("build")
 }
 
 application {
