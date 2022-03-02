@@ -1,5 +1,3 @@
-package com.chompbot
-
 import dev.kord.core.Kord
 import dev.kord.core.behavior.reply
 import dev.kord.core.event.gateway.ReadyEvent

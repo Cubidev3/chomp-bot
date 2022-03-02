@@ -23,8 +23,10 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Jar> {
     manifest {
-        attributes["Main-Class"] = "com.chompbot.MainKt"
+        attributes["Main-Class"] = application.mainClass
     }
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 tasks.create("stage") {
