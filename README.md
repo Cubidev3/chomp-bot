@@ -1,3 +1,5 @@
+![preview](https://user-images.githubusercontent.com/35977727/156672697-6d0557e2-a3d9-4e41-9e2a-72c472f49e08.png)
+
 # chomp-bot
 It says "chomp" whenever someone mentions dick. I'm sorry.
 
