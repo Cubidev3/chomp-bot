@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "me.valentinegb"
-version = "1.0.0"
+version = "1.1.0"
 
 repositories {
     mavenCentral()
@@ -14,7 +14,7 @@ repositories {
 
 dependencies {
     implementation("dev.kord:kord-core:0.8.0-M10")
-    implementation("org.slf4j:slf4j-simple:1.7.30")
+    implementation("org.slf4j:slf4j-simple:1.7.36")
 }
 
 tasks.withType<KotlinCompile> {

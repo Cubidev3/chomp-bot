@@ -1,44 +1,47 @@
 import dev.kord.core.Kord
 import dev.kord.core.behavior.reply
+import dev.kord.core.entity.Message
 import dev.kord.core.event.gateway.ReadyEvent
 import dev.kord.core.event.message.MessageCreateEvent
+import dev.kord.core.event.message.MessageUpdateEvent
 import dev.kord.core.on
 import dev.kord.gateway.Intent
 import dev.kord.gateway.Intents
 
+val whitelist = listOf(
+    "penis",
+    " cock ",
+    " cocks ",
+    " dick ",
+    " dicks ",
+    " balls ",
+    "testicle",
+    "male genital",
+    " dong ",
+    " dongs ",
+    "meat stick",
+    "love shaft",
+    "third leg",
+    " wiener ",
+    "baby maker",
+    "peepee",
+    "meat shaft",
+    "male reproductive genital",
+    "sperm shooter",
+    " pp ",
+)
+
 suspend fun main() {
     println("Starting...")
-
-    val whitelist = listOf(
-        "penis",
-        "cock",
-        "dick",
-        "balls",
-        "testicles",
-        "male genitalia",
-        "dong",
-        "meat stick",
-        "richard",
-        "love shaft",
-        "third leg",
-        "wiener",
-        "baby makers",
-        "peepee",
-    )
 
     val kord = Kord(System.getenv("BOT_TOKEN"))
 
     kord.on<MessageCreateEvent> {
-        var triggersWhitelist = false
+        checkForTriggerWord(message)
+    }
 
-        for (word in whitelist) {
-            if (triggersWhitelist) break
-            if (word in message.content.lowercase()) triggersWhitelist = true
-        }
-
-        if (triggersWhitelist) message.reply {
-            content = "**chomp**"
-        }
+    kord.on<MessageUpdateEvent> {
+        checkForTriggerWord(this.getMessage())
     }
 
     kord.on<ReadyEvent> {
@@ -47,8 +50,21 @@ suspend fun main() {
 
     kord.login {
         intents = Intents(Intent.GuildMessages)
+
         presence {
             watching("for \"food\"")
+        }
+    }
+}
+
+suspend fun checkForTriggerWord(message: Message) {
+    for (word in whitelist) {
+        if (word in " ${message.content.lowercase()} ") {
+            message.reply {
+                content = "**chomp**"
+            }
+
+            break
         }
     }
 }
