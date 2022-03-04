@@ -59,7 +59,7 @@ suspend fun main() {
 
 suspend fun checkForTriggerWord(message: Message) {
     for (word in whitelist) {
-        if (word in " ${message.content.lowercase().filter { it.isLetter() }} ") {
+        if (word in " ${message.content.lowercase().filter { it.isLetter() || it.isWhitespace() }} ") {
             message.reply {
                 content = "**chomp**"
             }
