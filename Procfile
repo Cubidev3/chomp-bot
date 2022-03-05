@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/chomp-bot-1.1.2.jar
+web: java -Dserver.port=$PORT $JAVA_OPTS -jar build/libs/chomp-bot-1.2.0.jar
