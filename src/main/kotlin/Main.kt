@@ -19,7 +19,9 @@ import io.ktor.http.*
 import kotlinx.coroutines.flow.count
 import kotlin.time.Duration
 
-const val APP_ID = "948383829738000424"
+//const val APP_ID = "948383829738000424"
+
+// TODO: separate system for messages containing *only* trigger words
 
 val whitelist = listOf(
     "penis",
@@ -48,31 +50,32 @@ suspend fun main() {
     println("Starting...")
 
     val kord = Kord(System.getenv("BOT_TOKEN"))
-    val botListRateLimiter = BucketRateLimiter(1, Duration.parse("6s"))
+//    val botListRateLimiter = BucketRateLimiter(1, Duration.parse("6s"))
 
-    kord.on<GuildCreateEvent> {
-        val httpClient = HttpClient(CIO) {
-            install(JsonFeature)
-        }
-
-        botListRateLimiter.consume {
-            val guilds = kord.guilds.count()
-
-            httpClient.post<HttpResponse>("https://discord.bots.gg/api/v1/bots/$APP_ID/stats") {
-                headers {
-                    append(HttpHeaders.Authorization, System.getenv("BOT_LIST_API_TOKEN"))
-                }
-
-                contentType(ContentType.Application.Json)
-
-                body = object {
-                    val guildCount = guilds
-                }
-            }
-        }
-
-        httpClient.close()
-    }
+    // Was denied verification from discord.bots.gg, gonna try top.gg now lol
+//    kord.on<GuildCreateEvent> {
+//        val httpClient = HttpClient(CIO) {
+//            install(JsonFeature)
+//        }
+//
+//        botListRateLimiter.consume {
+//            val guilds = kord.guilds.count()
+//
+//            httpClient.post<HttpResponse>("https://discord.bots.gg/api/v1/bots/$APP_ID/stats") {
+//                headers {
+//                    append(HttpHeaders.Authorization, System.getenv("BOT_LIST_API_TOKEN"))
+//                }
+//
+//                contentType(ContentType.Application.Json)
+//
+//                body = object {
+//                    val guildCount = guilds
+//                }
+//            }
+//        }
+//
+//        httpClient.close()
+//    }
 
     kord.on<MessageCreateEvent> {
         checkForTriggerWord(message)
