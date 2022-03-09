@@ -6,16 +6,18 @@ plugins {
 }
 
 group = "me.valentinegb"
-version = "1.3.0"
+version = "1.4.0"
 
 repositories {
     mavenCentral()
+    maven("https://jitpack.io")
 }
 
 dependencies {
     implementation("dev.kord:kord-core:0.8.0-M10")
     implementation("org.slf4j:slf4j-simple:1.7.36")
     implementation("io.ktor:ktor-client-gson:1.6.7")
+    implementation("org.discordbots:DBL-Java-Library:2.0.1")
 }
 
 tasks.withType<KotlinCompile> {
