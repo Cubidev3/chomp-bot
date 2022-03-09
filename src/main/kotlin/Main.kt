@@ -12,15 +12,14 @@ import dev.kord.gateway.Intents
 import kotlinx.coroutines.flow.count
 import org.discordbots.api.client.DiscordBotListAPI
 
-// TODO: separate system for messages containing *only* trigger words
+const val RESPONSE_MESSAGE = "**chomp**"
 
-val whitelist = listOf(
+val triggerWords = listOf(
     "penis",
     " cock ",
     " cocks ",
     " dick ",
     " dicks ",
-    " balls ",
     "testicle",
     "male genital",
     " dong ",
@@ -35,6 +34,9 @@ val whitelist = listOf(
     "male reproductive genital",
     "sperm shooter",
     " pp ",
+)
+val triggerWordsAlone = listOf( // I will add to this... later... probably
+    "balls"
 )
 
 suspend fun main() {
@@ -64,10 +66,22 @@ suspend fun main() {
 }
 
 suspend fun checkForTriggerWord(message: Message) {
-    for (word in whitelist) {
-        if (word in " ${message.content.lowercase().filter { it.isLetter() || it.isWhitespace() }} ") {
+    val filteredMessage = message.content.lowercase().filter { it.isLetter() || it.isWhitespace() }
+
+    for (word in triggerWords) {
+        if (word in " $filteredMessage ") {
             message.reply {
-                content = "**chomp**"
+                content = RESPONSE_MESSAGE
+            }
+
+            break
+        }
+    }
+
+    for (word in triggerWordsAlone) {
+        if (word == filteredMessage) {
+            message.reply {
+                content = RESPONSE_MESSAGE
             }
 
             break
