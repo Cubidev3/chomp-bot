@@ -36,7 +36,7 @@ val triggerWords = listOf(
     " pp ",
 )
 val triggerWordsAlone = listOf( // I will add to this... later... probably
-    "balls"
+    " balls ",
 )
 
 suspend fun main() {
@@ -66,10 +66,10 @@ suspend fun main() {
 }
 
 suspend fun checkForTriggerWord(message: Message) {
-    val filteredMessage = message.content.lowercase().filter { it.isLetter() || it.isWhitespace() }
+    val filteredMessage = " ${message.content.lowercase().filter { it.isLetter() || it.isWhitespace() }} "
 
     for (word in triggerWords) {
-        if (word in " $filteredMessage ") {
+        if (word in filteredMessage) {
             message.reply {
                 content = RESPONSE_MESSAGE
             }
